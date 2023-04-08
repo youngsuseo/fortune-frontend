@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Golden Key</title>
+</head>
+<body>
+    <h1>test</h1>
+    <button onclick="getFortune()">요청하기</button>
+    <script>
+        async function getFortune() {
+            try {
+                const response = await fetch('http://localhost:3000/fortune', {
+                    method: 'POST', // 또는 'PUT'
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name : 'john'})
+                })
+
+                const data = await response.json();
+                console.log(data);
+                return data;
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    </script>
+</body>
+</html>
