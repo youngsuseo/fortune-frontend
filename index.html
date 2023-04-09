@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat UI Screen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             margin: 0;
@@ -79,6 +80,11 @@
             width: 50%;
             min-width: 30%;
         }
+
+        #loader {
+            font-size: 25px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -105,11 +111,14 @@
                 <p class="assistant">운세에 대해서 물어봐 주세요!</p>
             </div>
         </div>
+        <div id="loader" class="loader" style="display: none">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="chat-input">
             <label>
                 <input type="text" placeholder="Type your message here...">
+                <button id="btn" onclick="spinner()">Send</button>
             </label>
-            <button>Send</button>
         </div>
     </div>
 
@@ -143,6 +152,7 @@
 
             const data = await response.json();
             assistantMessages.push(data.assistant);
+            document.getElementById('loader').style.display = 'none';
 
             const astrologerMessage = document.createElement('div');
             astrologerMessage.classList.add('chat-message');
@@ -161,6 +171,10 @@
 
             document.getElementById('intro').style.display = 'none';
             document.getElementById('chat').style.display = 'block';
+        }
+
+        function spinner() {
+            document.getElementById('loader').style.display = 'block';
         }
 
         document.querySelector('.chat-input button').addEventListener('click', sendMessage);
